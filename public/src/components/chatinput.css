@@ -1,0 +1,31 @@
+input[type="file"] {
+  display: none;
+}
+button :hover{
+    cursor: pointer;
+   
+}
+
+label{
+  /* background-color: red; */
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+
+label svg{
+  color: rgb(244, 240, 240);
+}
+
+
+    svg :hover{
+      
+        cursor: pointer;
+        color: rgb(23, 198, 187);
+      transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+
+
+
+  
