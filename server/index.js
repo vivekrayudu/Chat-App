@@ -9,7 +9,8 @@ require("dotenv").config();
 
 const path = require('path');
 
-app.use(cors());
+app.use(cors({ origin: "https://chat-app-e67k.onrender.com", credentials: true }));
+
 app.use(express.json());
 
 mongoose
@@ -49,6 +50,8 @@ const io = socket(server, {
 
 
 global.onlineUsers = new Map();
+
+
 io.on("connection", (socket) => {
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
