@@ -13,10 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("DB Connetion Successfull");
   })
@@ -44,7 +41,7 @@ const server = app.listen(process.env.PORT, () =>
 
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://chat-app-e67k.onrender.com",
     credentials: true,
   },
 });
