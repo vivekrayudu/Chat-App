@@ -31,7 +31,7 @@ export default function SetAvatar() {
       }
 
       const data = [];
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 5; i++) {
         const svg = multiavatar(Math.floor(Math.random() * 1000).toString());
         const buffer = Buffer.from(svg);
         data.push(buffer.toString("base64"));
@@ -44,11 +44,14 @@ export default function SetAvatar() {
     fetchAvatars();
   }, [navigate]);
 
-  const setProfilePicture = async () => {
-    if (selectedAvatar === undefined) {
-      toast.error("Please select an avatar", toastOptions);
-    } else {
-      const user = await JSON.parse(
+const setProfilePicture = async () => {
+  if (selectedAvatar === undefined) {
+    toast.error("Please select an avatar", toastOptions);
+  } else {
+    setIsLoading(true); // Show loader after button click
+
+    try {
+      const user = JSON.parse(
         localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
       );
 
@@ -63,12 +66,20 @@ export default function SetAvatar() {
           process.env.REACT_APP_LOCALHOST_KEY,
           JSON.stringify(user)
         );
-        navigate("/");
+
+        // Optional delay to let the loader show for a bit
+        setTimeout(() => navigate("/"), 3000);
       } else {
         toast.error("Error setting avatar. Please try again.", toastOptions);
+        setIsLoading(false); // Re-enable UI if failed
       }
+    } catch (err) {
+      toast.error("Something went wrong", toastOptions);
+      setIsLoading(false);
     }
-  };
+  }
+};
+
 
   return (
     <>
